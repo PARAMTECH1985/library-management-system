@@ -1,0 +1,34 @@
+package com.ibizabroker.lms.entity;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Data
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "borrow")
+public class Borrow {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer borrowId;
+
+    private Integer bookId;
+    private Integer userId;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using = JsonDataSerializer.class)
+    private Date issueDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using = JsonDataSerializer.class)
+    private Date returnDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using = JsonDataSerializer.class)
+    private Date dueDate;
+}
